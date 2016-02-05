@@ -13,6 +13,10 @@
 
 		<interceptors>
 
+			<interceptor name="hello"
+				class="com.tony.struts2.interceptors.MyInterceptor"></interceptor>
+				
+				
 			<interceptor-stack name="tony">
 				<interceptor-ref name="defaultStack">
 					<param name="fileUpload.maximumSize">2097152</param>
@@ -29,6 +33,18 @@
 		<action name="testUpload" class="com.tony.struts2.upload.app.uploadAction">
 			<result>/success.jsp</result>
 			<result name="input">/upload.jsp</result>
+		</action>
+		<action name="testDownload" class="com.tony.struts2.upload.app.DownLoadAction">
+			<result type="stream">
+				<param name="bufferSize">2048</param>
+			</result>
+		</action>
+		<action name="testToken" class="com.tony.struts2.token.app.TokenAction">
+			<interceptor-ref name="hello"></interceptor-ref>
+			<interceptor-ref name="tokenSession"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result>/success.jsp</result>
+			<result name="invalid.token">/token-error.jsp</result>
 		</action>
 
 
